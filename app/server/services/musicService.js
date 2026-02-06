@@ -57,9 +57,10 @@ async function getRandomSongs(genre = 'pop', limit = 10, language = null, diffic
 
         let selected;
         if (difficulty === 'easy') {
-            // Easier mode: keep API ordering (more popular / relevant first)
-            // and just take the top 'limit' tracks
-            selected = results.slice(0, limit);
+            // EASY MODE: Grab the top 100 most relevant/popular results
+            // Then shuffle THAT subset and take your limit
+            const topPool = results.slice(0, 100);
+            selected = topPool.sort(() => 0.5 - Math.random()).slice(0, limit);
         } else {
             // Hard mode (default): fully random within the result set
             const shuffled = results.sort(() => 0.5 - Math.random());
