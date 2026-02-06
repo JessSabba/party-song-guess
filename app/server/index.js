@@ -89,6 +89,8 @@ io.on('connection', (socket) => {
                     }
                 }, 5000); // 5 sec interim
             }
+        } else {
+            socket.emit('wrong_guess');
         }
     });
 

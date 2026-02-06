@@ -5,6 +5,7 @@ export default function GameRoom({ socket, room, players }) {
     const [status, setStatus] = useState('Get Ready...'); // Get Ready, Playing, Round Over
     const [guess, setGuess] = useState('');
     const [roundResult, setRoundResult] = useState(null); // { winner: 'Name', song: {...} }
+    const [errorMessage, setErrorMessage] = useState(null);
     const audioRef = useRef(new Audio());
 
     const [countdown, setCountdown] = useState(null);
@@ -29,6 +30,7 @@ export default function GameRoom({ socket, room, players }) {
             setCurrentRound(roundNumber);
             setStatus('PLAYING');
             setRoundResult(null);
+            setErrorMessage(null);
             setGuess('');
 
             // Play Audio
@@ -49,12 +51,17 @@ export default function GameRoom({ socket, room, players }) {
             audioRef.current.pause();
         });
 
+        socket.on('wrong_guess', () => {
+            setErrorMessage('Risposta sbagliata, riprova!');
+        });
+
         // Clean up listeners
         return () => {
             socket.off('start_countdown');
             socket.off('new_round');
             socket.off('round_winner');
             socket.off('round_timeout');
+            socket.off('wrong_guess');
             audioRef.current.pause();
         };
     }, [socket]);
@@ -62,6 +69,7 @@ export default function GameRoom({ socket, room, players }) {
     const submitGuess = (e) => {
         e.preventDefault();
         if (guess.trim()) {
+            setErrorMessage(null);
             socket.emit('submit_guess', { roomId: room.id, guess });
             // Optionally clear guess or give feedback "Submitted"
         }
@@ -117,6 +125,12 @@ export default function GameRoom({ socket, room, players }) {
                     INVIA
                 </button>
             </form>
+
+            {errorMessage && (
+                <div className="mt-3 w-full text-red-400 text-sm font-semibold">
+                    {errorMessage}
+                </div>
+            )}
 
             <div className="mt-8 w-full">
                 <h4 className="text-gray-400 mb-2 font-bold uppercase text-sm tracking-wider">Scoreboard</h4>
