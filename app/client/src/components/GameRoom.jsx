@@ -2,7 +2,8 @@ import React, { useEffect, useState, useRef } from 'react';
 import { t } from '../i18n';
 
 /**
- * @returns 
+ * @author Andrea Fiorucci
+ * @lastUpdate 2026-02-06 - Jessica Sabbatini.
  */
 export default function GameRoom({ socket, room, players }) {
     const [currentRound, setCurrentRound] = useState(0);
@@ -85,12 +86,14 @@ export default function GameRoom({ socket, room, players }) {
 
             <div className="w-full flex flex-col sm:flex-row gap-2 sm:gap-0 justify-between items-center mb-4 sm:mb-6 px-2 sm:px-4 text-center sm:text-left">
                 <div className="bg-gray-800 px-4 py-2 rounded-full font-mono">
-                    Round {currentRound} / {room?.totalRounds || 10}
+                    Round {currentRound} / {room?.totalRounds ? room?.totalRounds : 10}
                 </div>
                 <div className="text-lg sm:text-xl font-bold animate-pulse text-purple-400">
                     {status === 'PLAYING' ? t('game.guessTheSong') : status}
                 </div>
             </div>
+
+            {/* TODO: aggiungere btn per possibilità di abbandonare partita */}
 
             {/* Visualizer / Album Art placeholder */}
             <div className="w-56 h-56 sm:w-64 sm:h-64 bg-gray-800 rounded-xl mb-6 sm:mb-8 flex items-center justify-center shadow-lg border-4 border-gray-700 relative overflow-hidden">
@@ -130,6 +133,15 @@ export default function GameRoom({ socket, room, players }) {
                     className="bg-purple-600 hover:bg-purple-700 disabled:bg-gray-600 px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-bold transition text-base sm:text-lg"
                 >
                     INVIA
+                </button>
+                
+                {/* TODO: completare btn di SKIP */}
+                <button
+                    type="btn"
+                    disabled={status !== 'PLAYING'}
+                    className="bg-red-600 hover:bg-purple-700 disabled:bg-gray-600 px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-bold transition text-base sm:text-lg"
+                >
+                    SALTA
                 </button>
             </form>
 

@@ -16,7 +16,7 @@ Un gioco musicale multiplayer in tempo reale via browser. I giocatori devono ind
 
 ## Come avviare il progetto
 
-### Preequisiti
+### Prerequisiti
 
 NodeJS > 20.19 or > 22.12
 
