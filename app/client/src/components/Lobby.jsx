@@ -12,8 +12,8 @@ export default function Lobby({
     toggleGenre,
     selectedDecade,
     setSelectedDecade,
-    selectedLanguage,
-    setSelectedLanguage,
+    // selectedLanguage,
+    // setSelectedLanguage,
     selectedDifficulty,
     setSelectedDifficulty
 }) {
@@ -96,7 +96,7 @@ export default function Lobby({
                         </select>
                     </div>
 
-                    <div>
+                    {/* <div>
                         <label className="block text-xs sm:text-sm text-gray-400 mb-1">
                             {t('landing.languageLabel')}
                         </label>
@@ -110,7 +110,7 @@ export default function Lobby({
                             <option value="en">{t('landing.language_en')}</option>
                             <option value="es">{t('landing.language_es')}</option>
                         </select>
-                    </div>
+                    </div> */}
 
                     <div>
                         <label className="block text-xs sm:text-sm text-gray-400 mb-1">
