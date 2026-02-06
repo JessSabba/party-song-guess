@@ -1,6 +1,9 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { t } from '../i18n';
 
+/**
+ * @returns 
+ */
 export default function GameRoom({ socket, room, players }) {
     const [currentRound, setCurrentRound] = useState(0);
     const [status, setStatus] = useState('Get Ready...'); // Get Ready, Playing, Round Over
